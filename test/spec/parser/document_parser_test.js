@@ -211,28 +211,6 @@ describe('DocumentParser', () => {
           expect(relationship.isInjectedFieldInToRequired).to.be.false;
         });
       });
-      context("with a field name 'id'", () => {
-        let jdlObject = null;
-
-        before(() => {
-          const input = JDLReader.parseFromFiles(['./test/test_files/id_field.jdl']);
-          jdlObject = DocumentParser.parseFromConfigurationObject({
-            document: input
-          });
-        });
-
-        it("doesn't add it", () => {
-          expect(jdlObject.entities.A).to.deep.eq(
-            new JDLEntity({
-              name: 'A',
-              tableName: 'A',
-              fields: {
-                email: new JDLField({ name: 'email', type: FieldTypes.STRING })
-              }
-            })
-          );
-        });
-      });
       context('with User entity as destination for a relationship', () => {
         let jdlObject = null;
 

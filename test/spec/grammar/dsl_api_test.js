@@ -28,7 +28,7 @@ describe('JDL DSL API', () => {
       let ast;
 
       before(() => {
-        ast = parse('@service(serviceClass) entity A {field String}');
+        ast = parse('@service(serviceClass) entity A {field String id}');
       });
 
       it('returns an AST', () => {
@@ -41,6 +41,7 @@ describe('JDL DSL API', () => {
             {
               name: 'field',
               type: 'String',
+              id: true,
               validations: [],
               javadoc: null
             }
@@ -158,10 +159,11 @@ describe('JDL DSL API', () => {
       });
 
       it('provides suggestions', () => {
-        expect(result).to.have.lengthOf(5);
+        expect(result).to.have.lengthOf(6);
         // Note that because we are using token Inheritance with the MIN_MAX_KEYWORD an auto-complete provider would have
         // to translate this to concrete tokens (MIN/MAX/MAX_BYTES/MIN_BYTES/...)
         expect(result).to.have.members([
+          tokens.ID,
           tokens.REQUIRED,
           tokens.UNIQUE,
           tokens.MIN_MAX_KEYWORD,
@@ -179,8 +181,9 @@ describe('JDL DSL API', () => {
       });
 
       it('provides suggestions', () => {
-        expect(result).to.have.lengthOf(8);
+        expect(result).to.have.lengthOf(9);
         expect(result).to.have.members([
+          tokens.ID,
           tokens.REQUIRED,
           tokens.UNIQUE,
           tokens.MIN_MAX_KEYWORD,
